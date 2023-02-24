@@ -37,7 +37,7 @@ jobs:
           name: main
   download_artifacts:
     runs-on: ubuntu-latest
-    needs: upload artifacts
+    needs: upload_artifacts
     steps:
       - name: Upload Artifacts
         uses: actions/download-artifact@v3
