@@ -1,0 +1,48 @@
+# TEST GIT HUB ACTIONS
+```
+name: deploy my app
+on: [workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Test 
+        run: npm run test
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Build 
+        run: npm run build
+  upload_artifacts:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Build 
+        run: npm run build
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: dist
+          name: main
+  download_artifacts:
+    runs-on: ubuntu-latest
+    needs: upload_artifacts
+    steps:
+      - name: Upload Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: main
+```
