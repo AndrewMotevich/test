@@ -1,0 +1,22 @@
+name: deploy my app
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Test 
+        run: npm run test
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Build 
+        run: npm run build
